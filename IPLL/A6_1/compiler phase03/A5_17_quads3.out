@@ -1,0 +1,58 @@
+============================================================================================================================================
+Table Name: global		 Parent Name: None
+============================================================================================================================================
+Name                Type                                    Initial Value       Offset              Size                Child               
+
+main                function                                                    0                   4                   main                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+Table Name: main		 Parent Name: global
+============================================================================================================================================
+Name                Type                                    Initial Value       Offset              Size                Child               
+
+printInt            int                                                         0                   4                   NULL                
+printStr            int                                                         4                   4                   NULL                
+readInt             int                                                         8                   4                   NULL                
+return              int                                                         12                  4                   NULL                
+t0                  ptr(int)                                                    16                  4                   NULL                
+t1                  int                                                         20                  4                   NULL                
+t10                 int                                                         24                  4                   NULL                
+t11                 int                                                         28                  4                   NULL                
+t12                 int                                     0                   32                  4                   NULL                
+t2                  ptr(int)                                                    36                  4                   NULL                
+t3                  int                                                         40                  4                   NULL                
+t4                  int                                                         44                  4                   NULL                
+t5                  int                                                         48                  4                   NULL                
+t6                  ptr(char)                               "+"                 52                  4                   NULL                
+t7                  int                                                         56                  4                   NULL                
+t8                  int                                                         60                  4                   NULL                
+t9                  ptr(char)                               " = "               64                  4                   NULL                
+x                   int                                                         68                  4                   NULL                
+y                   int                                                         72                  4                   NULL                
+z                   int                                                         76                  4                   NULL                
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1   : main
+2   : 	t0 = &x
+3   : 	param t0
+4   : 	t1 = call readInt, 1
+5   : 	t2 = &y
+6   : 	param t2
+7   : 	t3 = call readInt, 1
+8   : 	t4 = x + y
+9   : 	z = t4
+10  : 	param x
+11  : 	t5 = call printInt, 1
+12  : 	param t6
+13  : 	t7 = call printStr, 1
+14  : 	param y
+15  : 	t8 = call printInt, 1
+16  : 	param t9
+17  : 	t10 = call printStr, 1
+18  : 	param z
+19  : 	t11 = call printInt, 1
+20  : 	t12 = 0
+21  : 	return t12

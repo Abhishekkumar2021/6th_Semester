@@ -1,0 +1,176 @@
+------------------------------------------------------------------------------------------------------------------------
+THREE ADDRESS CODE (TAC):
+------------------------------------------------------------------------------------------------------------------------
+
+0   : printStr: 
+1   : function printStr ends
+
+2   : printInt: 
+3   : function printInt ends
+
+4   : readInt: 
+5   : function readInt ends
+
+6   : main: 
+7   :    param .LC0
+8   :    t0 = call printStr, 1
+9   :    t1 = &flag
+10  :    param t1
+11  :    t2 = call readInt, 1
+12  :    x = t2
+13  :    param .LC1
+14  :    t3 = call printStr, 1
+15  :    t4 = &flag
+16  :    param t4
+17  :    t5 = call readInt, 1
+18  :    y = t5
+19  :    t6 = 99
+20  :    ch = t6
+21  :    t7 = x + y
+22  :    i = t7
+23  :    param .LC2
+24  :    t8 = call printStr, 1
+25  :    param i
+26  :    t9 = call printInt, 1
+27  :    param .LC3
+28  :    t10 = call printStr, 1
+29  :    t11 = x - y
+30  :    j = t11
+31  :    param .LC4
+32  :    t12 = call printStr, 1
+33  :    param j
+34  :    t13 = call printInt, 1
+35  :    param .LC5
+36  :    t14 = call printStr, 1
+37  :    t15 = x * y
+38  :    k = t15
+39  :    param .LC6
+40  :    t16 = call printStr, 1
+41  :    param k
+42  :    t17 = call printInt, 1
+43  :    param .LC7
+44  :    t18 = call printStr, 1
+45  :    t19 = x / y
+46  :    l = t19
+47  :    param .LC8
+48  :    t20 = call printStr, 1
+49  :    param l
+50  :    t21 = call printInt, 1
+51  :    param .LC9
+52  :    t22 = call printStr, 1
+53  :    t23 = x % y
+54  :    m = t23
+55  :    param .LC10
+56  :    t24 = call printStr, 1
+57  :    param m
+58  :    t25 = call printInt, 1
+59  :    param .LC11
+60  :    t26 = call printStr, 1
+61  :    t27 = 0
+62  :    return t27
+63  : function main ends
+
+------------------------------------------------------------------------------------------------------------------------
+Symbol Table: ST.global                                         
+------------------------------------------------------------------------------------------------------------------------
+Name                     Type                     Initial Value       Size           Offset         Nested
+------------------------------------------------------------------------------------------------------------------------
+printStr                 function                 -                   0              0              ST.global.printStr
+printInt                 function                 -                   0              0              ST.global.printInt
+readInt                  function                 -                   0              0              ST.global.readInt
+c                        char                     -                   1              0              NULL
+i                        int                      -                   4              1              NULL
+j                        int                      -                   4              5              NULL
+k                        int                      -                   4              9              NULL
+l                        int                      -                   4              13             NULL
+m                        int                      -                   4              17             NULL
+main                     function                 -                   0              21             ST.global.main
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+Symbol Table: ST.global.printStr                                
+------------------------------------------------------------------------------------------------------------------------
+Name                     Type                     Initial Value       Size           Offset         Nested
+------------------------------------------------------------------------------------------------------------------------
+ch                       char                     -                   1              0              NULL
+RETVAL                   int                      -                   4              1              NULL
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+Symbol Table: ST.global.printInt                                
+------------------------------------------------------------------------------------------------------------------------
+Name                     Type                     Initial Value       Size           Offset         Nested
+------------------------------------------------------------------------------------------------------------------------
+n                        int                      -                   4              0              NULL
+RETVAL                   int                      -                   4              4              NULL
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+Symbol Table: ST.global.readInt                                 
+------------------------------------------------------------------------------------------------------------------------
+Name                     Type                     Initial Value       Size           Offset         Nested
+------------------------------------------------------------------------------------------------------------------------
+eP                       int                      -                   4              0              NULL
+RETVAL                   int                      -                   4              4              NULL
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+Symbol Table: ST.global.main                                    
+------------------------------------------------------------------------------------------------------------------------
+Name                     Type                     Initial Value       Size           Offset         Nested
+------------------------------------------------------------------------------------------------------------------------
+RETVAL                   int                      -                   4              0              NULL
+x                        int                      -                   4              4              NULL
+y                        int                      -                   4              8              NULL
+flag                     int                      -                   4              12             NULL
+printStr                 int                      -                   4              16             NULL
+.LC0                     int                      -                   4              20             NULL
+t0                       int                      -                   4              24             NULL
+readInt                  int                      -                   4              28             NULL
+t1                                                -                   8              32             NULL
+t2                       int                      -                   4              40             NULL
+.LC1                     int                      -                   4              44             NULL
+t3                       int                      -                   4              48             NULL
+t4                                                -                   8              52             NULL
+t5                       int                      -                   4              60             NULL
+t6                       char                     99                  1              64             NULL
+ch                       char                     99                  1              65             NULL
+i                        int                      -                   4              66             NULL
+t7                       int                      -                   4              70             NULL
+.LC2                     int                      -                   4              74             NULL
+t8                       int                      -                   4              78             NULL
+printInt                 int                      -                   4              82             NULL
+t9                       int                      -                   4              86             NULL
+.LC3                     int                      -                   4              90             NULL
+t10                      int                      -                   4              94             NULL
+j                        int                      -                   4              98             NULL
+t11                      int                      -                   4              102            NULL
+.LC4                     int                      -                   4              106            NULL
+t12                      int                      -                   4              110            NULL
+t13                      int                      -                   4              114            NULL
+.LC5                     int                      -                   4              118            NULL
+t14                      int                      -                   4              122            NULL
+k                        int                      -                   4              126            NULL
+t15                      int                      -                   4              130            NULL
+.LC6                     int                      -                   4              134            NULL
+t16                      int                      -                   4              138            NULL
+t17                      int                      -                   4              142            NULL
+.LC7                     int                      -                   4              146            NULL
+t18                      int                      -                   4              150            NULL
+l                        int                      -                   4              154            NULL
+t19                      int                      -                   4              158            NULL
+.LC8                     int                      -                   4              162            NULL
+t20                      int                      -                   4              166            NULL
+t21                      int                      -                   4              170            NULL
+.LC9                     int                      -                   4              174            NULL
+t22                      int                      -                   4              178            NULL
+m                        int                      -                   4              182            NULL
+t23                      int                      -                   4              186            NULL
+.LC10                    int                      -                   4              190            NULL
+t24                      int                      -                   4              194            NULL
+t25                      int                      -                   4              198            NULL
+.LC11                    int                      -                   4              202            NULL
+t26                      int                      -                   4              206            NULL
+t27                      int                      0                   4              210            NULL
+------------------------------------------------------------------------------------------------------------------------
+

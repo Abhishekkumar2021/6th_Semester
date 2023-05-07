@@ -1,0 +1,2497 @@
+State 155 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: translation_unit $end
+
+    1 primary_expression: IDENTIFIER
+    2                   | INTEGER_CONSTANT
+    3                   | CHAR_CONSTANT
+    4                   | STRING_LITERAL
+    5                   | PARENTHESIS_OPEN expression PARENTHESIS_CLOSE
+
+    6 postfix_expression: primary_expression
+    7                   | postfix_expression SQUARE_BRACE_OPEN expression SQUARE_BRACE_CLOSE
+    8                   | postfix_expression PARENTHESIS_OPEN PARENTHESIS_CLOSE
+    9                   | postfix_expression PARENTHESIS_OPEN argument_expression_list PARENTHESIS_CLOSE
+   10                   | postfix_expression ARROW IDENTIFIER
+
+   11 argument_expression_list: assignment_expression
+   12                         | argument_expression_list COMMA assignment_expression
+
+   13 unary_expression: postfix_expression
+   14                 | unary_operator cast_expression
+
+   15 unary_operator: BITWISE_AND
+   16               | MULTIPLY
+   17               | ADD_
+   18               | SUBTRACT
+   19               | NOT
+
+   20 cast_expression: unary_expression
+
+   21 multiplicative_expression: cast_expression
+   22                          | multiplicative_expression MULTIPLY cast_expression
+   23                          | multiplicative_expression DIVIDE cast_expression
+   24                          | multiplicative_expression MODULO cast_expression
+
+   25 additive_expression: multiplicative_expression
+   26                    | additive_expression ADD_ multiplicative_expression
+   27                    | additive_expression SUBTRACT multiplicative_expression
+
+   28 relational_expression: additive_expression
+   29                      | relational_expression LESS_THAN additive_expression
+   30                      | relational_expression GREATER_THAN additive_expression
+   31                      | relational_expression LESS_THAN_EQUAL additive_expression
+   32                      | relational_expression GREATER_THAN_EQUAL additive_expression
+
+   33 equality_expression: relational_expression
+   34                    | equality_expression EQUAL relational_expression
+   35                    | equality_expression NOT_EQUAL relational_expression
+
+   36 logical_and_expression: equality_expression
+   37                       | logical_and_expression LOGICAL_AND M equality_expression
+
+   38 logical_or_expression: logical_and_expression
+   39                      | logical_or_expression LOGICAL_OR M logical_and_expression
+
+   40 conditional_expression: logical_or_expression
+   41                       | logical_or_expression N QUESTION_MARK M expression N COLON M conditional_expression
+
+   42 M: ε
+
+   43 N: ε
+
+   44 assignment_expression: conditional_expression
+   45                      | unary_expression assignment_operator assignment_expression
+
+   46 assignment_operator: ASSIGN_
+
+   47 expression: assignment_expression
+
+   48 declaration: type_specifier init_declarator SEMICOLON
+
+   49 init_declarator: declarator
+   50                | declarator ASSIGN_ initializer
+
+   51 type_specifier: VOID_
+   52               | CHAR_
+   53               | INT_
+
+   54 declarator: pointer direct_declarator
+   55           | direct_declarator
+
+   56 direct_declarator: IDENTIFIER
+   57                  | direct_declarator SQUARE_BRACE_OPEN SQUARE_BRACE_CLOSE
+   58                  | direct_declarator SQUARE_BRACE_OPEN assignment_expression SQUARE_BRACE_CLOSE
+   59                  | direct_declarator PARENTHESIS_OPEN parameter_list_opt PARENTHESIS_CLOSE
+
+   60 parameter_list_opt: parameter_list
+   61                   | ε
+
+   62 pointer: MULTIPLY
+
+   63 parameter_list: parameter_declaration
+   64               | parameter_list COMMA parameter_declaration
+
+   65 parameter_declaration: type_specifier declarator
+   66                      | type_specifier
+
+   67 initializer: assignment_expression
+
+   68 statement: compound_statement
+   69          | expression_statement
+   70          | selection_statement
+   71          | iteration_statement
+   72          | jump_statement
+
+   73 compound_statement: CURLY_BRACE_OPEN CURLY_BRACE_CLOSE
+   74                   | CURLY_BRACE_OPEN block_item_list CURLY_BRACE_CLOSE
+
+   75 block_item_list: block_item
+   76                | block_item_list M block_item
+
+   77 block_item: declaration
+   78           | statement
+
+   79 expression_statement: expression SEMICOLON
+   80                     | SEMICOLON
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N
+   82                    | IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N ELSE M statement N
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M expression N PARENTHESIS_CLOSE M statement
+
+   84 jump_statement: RETURN_ SEMICOLON
+   85               | RETURN_ expression SEMICOLON
+
+   86 translation_unit: external_declaration
+   87                 | translation_unit external_declaration
+
+   88 external_declaration: function_definition
+   89                     | declaration
+
+   90 function_definition: type_specifier declarator declaration_list compound_statement
+   91                    | function_prototype compound_statement
+
+   92 function_prototype: type_specifier declarator
+
+   93 declaration_list: declaration
+   94                 | declaration_list declaration
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    CHAR_ (258) 52
+    ELSE (259) 82
+    FOR (260) 83
+    IF (261) 81 82
+    INT_ (262) 53
+    RETURN_ (263) 84 85
+    VOID_ (264) 51
+    SQUARE_BRACE_OPEN (265) 7 57 58
+    SQUARE_BRACE_CLOSE (266) 7 57 58
+    PARENTHESIS_OPEN (267) 5 8 9 59 81 82 83
+    PARENTHESIS_CLOSE (268) 5 8 9 59 81 82 83
+    CURLY_BRACE_OPEN (269) 73 74
+    CURLY_BRACE_CLOSE (270) 73 74
+    ARROW (271) 10
+    BITWISE_AND (272) 15
+    MULTIPLY (273) 16 22 62
+    ADD_ (274) 17 26
+    SUBTRACT (275) 18 27
+    NOT (276) 19
+    DIVIDE (277) 23
+    MODULO (278) 24
+    LESS_THAN (279) 29
+    GREATER_THAN (280) 30
+    LESS_THAN_EQUAL (281) 31
+    GREATER_THAN_EQUAL (282) 32
+    EQUAL (283) 34
+    NOT_EQUAL (284) 35
+    LOGICAL_AND (285) 37
+    LOGICAL_OR (286) 39
+    QUESTION_MARK (287) 41
+    COLON (288) 41
+    SEMICOLON (289) 48 79 80 84 85
+    ASSIGN_ (290) 46 50
+    COMMA (291) 12 64
+    IDENTIFIER <str> (292) 1 10 56
+    INTEGER_CONSTANT <intval> (293) 2
+    CHAR_CONSTANT <charval> (294) 3
+    STRING_LITERAL <str> (295) 4
+
+
+Nonterminals, with rules where they appear
+
+    $accept (41)
+        on left: 0
+    primary_expression <expr> (42)
+        on left: 1 2 3 4 5
+        on right: 6
+    postfix_expression <expr> (43)
+        on left: 6 7 8 9 10
+        on right: 7 8 9 10 13
+    argument_expression_list <prmList> (44)
+        on left: 11 12
+        on right: 9 12
+    unary_expression <expr> (45)
+        on left: 13 14
+        on right: 20 45
+    unary_operator <charval> (46)
+        on left: 15 16 17 18 19
+        on right: 14
+    cast_expression <expr> (47)
+        on left: 20
+        on right: 14 21 22 23 24
+    multiplicative_expression <expr> (48)
+        on left: 21 22 23 24
+        on right: 22 23 24 25 26 27
+    additive_expression <expr> (49)
+        on left: 25 26 27
+        on right: 26 27 28 29 30 31 32
+    relational_expression <expr> (50)
+        on left: 28 29 30 31 32
+        on right: 29 30 31 32 33 34 35
+    equality_expression <expr> (51)
+        on left: 33 34 35
+        on right: 34 35 36 37
+    logical_and_expression <expr> (52)
+        on left: 36 37
+        on right: 37 38 39
+    logical_or_expression <expr> (53)
+        on left: 38 39
+        on right: 39 40 41
+    conditional_expression <expr> (54)
+        on left: 40 41
+        on right: 41 44
+    M <expr> (55)
+        on left: 42
+        on right: 37 39 41 76 81 82 83
+    N <expr> (56)
+        on left: 43
+        on right: 41 81 82 83
+    assignment_expression <expr> (57)
+        on left: 44 45
+        on right: 11 12 45 47 58 67
+    assignment_operator (58)
+        on left: 46
+        on right: 45
+    expression <expr> (59)
+        on left: 47
+        on right: 5 7 41 79 81 82 83 85
+    declaration (60)
+        on left: 48
+        on right: 77 89 93 94
+    init_declarator <dec> (61)
+        on left: 49 50
+        on right: 48
+    type_specifier <types> (62)
+        on left: 51 52 53
+        on right: 48 65 66 90 92
+    declarator <dec> (63)
+        on left: 54 55
+        on right: 49 50 65 90 92
+    direct_declarator <dec> (64)
+        on left: 56 57 58 59
+        on right: 54 55 57 58 59
+    parameter_list_opt <prmList> (65)
+        on left: 60 61
+        on right: 59
+    pointer <intval> (66)
+        on left: 62
+        on right: 54
+    parameter_list <prmList> (67)
+        on left: 63 64
+        on right: 60 64
+    parameter_declaration <prm> (68)
+        on left: 65 66
+        on right: 63 64
+    initializer <expr> (69)
+        on left: 67
+        on right: 50
+    statement <expr> (70)
+        on left: 68 69 70 71 72
+        on right: 78 81 82 83
+    compound_statement <expr> (71)
+        on left: 73 74
+        on right: 68 90 91
+    block_item_list <expr> (72)
+        on left: 75 76
+        on right: 74 76
+    block_item <expr> (73)
+        on left: 77 78
+        on right: 75 76
+    expression_statement <expr> (74)
+        on left: 79 80
+        on right: 69 83
+    selection_statement <expr> (75)
+        on left: 81 82
+        on right: 70
+    iteration_statement <expr> (76)
+        on left: 83
+        on right: 71
+    jump_statement <expr> (77)
+        on left: 84 85
+        on right: 72
+    translation_unit (78)
+        on left: 86 87
+        on right: 0 87
+    external_declaration (79)
+        on left: 88 89
+        on right: 86 87
+    function_definition (80)
+        on left: 90 91
+        on right: 88
+    function_prototype <dec> (81)
+        on left: 92
+        on right: 91
+    declaration_list (82)
+        on left: 93 94
+        on right: 90 94
+
+
+State 0
+
+    0 $accept: • translation_unit $end
+
+    CHAR_  shift, and go to state 1
+    INT_   shift, and go to state 2
+    VOID_  shift, and go to state 3
+
+    declaration           go to state 4
+    type_specifier        go to state 5
+    translation_unit      go to state 6
+    external_declaration  go to state 7
+    function_definition   go to state 8
+    function_prototype    go to state 9
+
+
+State 1
+
+   52 type_specifier: CHAR_ •
+
+    $default  reduce using rule 52 (type_specifier)
+
+
+State 2
+
+   53 type_specifier: INT_ •
+
+    $default  reduce using rule 53 (type_specifier)
+
+
+State 3
+
+   51 type_specifier: VOID_ •
+
+    $default  reduce using rule 51 (type_specifier)
+
+
+State 4
+
+   89 external_declaration: declaration •
+
+    $default  reduce using rule 89 (external_declaration)
+
+
+State 5
+
+   48 declaration: type_specifier • init_declarator SEMICOLON
+   90 function_definition: type_specifier • declarator declaration_list compound_statement
+   92 function_prototype: type_specifier • declarator
+
+    MULTIPLY    shift, and go to state 10
+    IDENTIFIER  shift, and go to state 11
+
+    init_declarator    go to state 12
+    declarator         go to state 13
+    direct_declarator  go to state 14
+    pointer            go to state 15
+
+
+State 6
+
+    0 $accept: translation_unit • $end
+   87 translation_unit: translation_unit • external_declaration
+
+    $end   shift, and go to state 16
+    CHAR_  shift, and go to state 1
+    INT_   shift, and go to state 2
+    VOID_  shift, and go to state 3
+
+    declaration           go to state 4
+    type_specifier        go to state 5
+    external_declaration  go to state 17
+    function_definition   go to state 8
+    function_prototype    go to state 9
+
+
+State 7
+
+   86 translation_unit: external_declaration •
+
+    $default  reduce using rule 86 (translation_unit)
+
+
+State 8
+
+   88 external_declaration: function_definition •
+
+    $default  reduce using rule 88 (external_declaration)
+
+
+State 9
+
+   91 function_definition: function_prototype • compound_statement
+
+    CURLY_BRACE_OPEN  shift, and go to state 18
+
+    compound_statement  go to state 19
+
+
+State 10
+
+   62 pointer: MULTIPLY •
+
+    $default  reduce using rule 62 (pointer)
+
+
+State 11
+
+   56 direct_declarator: IDENTIFIER •
+
+    $default  reduce using rule 56 (direct_declarator)
+
+
+State 12
+
+   48 declaration: type_specifier init_declarator • SEMICOLON
+
+    SEMICOLON  shift, and go to state 20
+
+
+State 13
+
+   49 init_declarator: declarator •
+   50                | declarator • ASSIGN_ initializer
+   90 function_definition: type_specifier declarator • declaration_list compound_statement
+   92 function_prototype: type_specifier declarator •
+
+    CHAR_    shift, and go to state 1
+    INT_     shift, and go to state 2
+    VOID_    shift, and go to state 3
+    ASSIGN_  shift, and go to state 21
+
+    CURLY_BRACE_OPEN  reduce using rule 92 (function_prototype)
+    $default          reduce using rule 49 (init_declarator)
+
+    declaration       go to state 22
+    type_specifier    go to state 23
+    declaration_list  go to state 24
+
+
+State 14
+
+   55 declarator: direct_declarator •
+   57 direct_declarator: direct_declarator • SQUARE_BRACE_OPEN SQUARE_BRACE_CLOSE
+   58                  | direct_declarator • SQUARE_BRACE_OPEN assignment_expression SQUARE_BRACE_CLOSE
+   59                  | direct_declarator • PARENTHESIS_OPEN parameter_list_opt PARENTHESIS_CLOSE
+
+    SQUARE_BRACE_OPEN  shift, and go to state 25
+    PARENTHESIS_OPEN   shift, and go to state 26
+
+    $default  reduce using rule 55 (declarator)
+
+
+State 15
+
+   54 declarator: pointer • direct_declarator
+
+    IDENTIFIER  shift, and go to state 11
+
+    direct_declarator  go to state 27
+
+
+State 16
+
+    0 $accept: translation_unit $end •
+
+    $default  accept
+
+
+State 17
+
+   87 translation_unit: translation_unit external_declaration •
+
+    $default  reduce using rule 87 (translation_unit)
+
+
+State 18
+
+   73 compound_statement: CURLY_BRACE_OPEN • CURLY_BRACE_CLOSE
+   74                   | CURLY_BRACE_OPEN • block_item_list CURLY_BRACE_CLOSE
+
+    CHAR_              shift, and go to state 1
+    FOR                shift, and go to state 28
+    IF                 shift, and go to state 29
+    INT_               shift, and go to state 2
+    RETURN_            shift, and go to state 30
+    VOID_              shift, and go to state 3
+    PARENTHESIS_OPEN   shift, and go to state 31
+    CURLY_BRACE_OPEN   shift, and go to state 18
+    CURLY_BRACE_CLOSE  shift, and go to state 32
+    BITWISE_AND        shift, and go to state 33
+    MULTIPLY           shift, and go to state 34
+    ADD_               shift, and go to state 35
+    SUBTRACT           shift, and go to state 36
+    NOT                shift, and go to state 37
+    SEMICOLON          shift, and go to state 38
+    IDENTIFIER         shift, and go to state 39
+    INTEGER_CONSTANT   shift, and go to state 40
+    CHAR_CONSTANT      shift, and go to state 41
+    STRING_LITERAL     shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    declaration                go to state 57
+    type_specifier             go to state 23
+    statement                  go to state 58
+    compound_statement         go to state 59
+    block_item_list            go to state 60
+    block_item                 go to state 61
+    expression_statement       go to state 62
+    selection_statement        go to state 63
+    iteration_statement        go to state 64
+    jump_statement             go to state 65
+
+
+State 19
+
+   91 function_definition: function_prototype compound_statement •
+
+    $default  reduce using rule 91 (function_definition)
+
+
+State 20
+
+   48 declaration: type_specifier init_declarator SEMICOLON •
+
+    $default  reduce using rule 48 (declaration)
+
+
+State 21
+
+   50 init_declarator: declarator ASSIGN_ • initializer
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 66
+    initializer                go to state 67
+
+
+State 22
+
+   93 declaration_list: declaration •
+
+    $default  reduce using rule 93 (declaration_list)
+
+
+State 23
+
+   48 declaration: type_specifier • init_declarator SEMICOLON
+
+    MULTIPLY    shift, and go to state 10
+    IDENTIFIER  shift, and go to state 11
+
+    init_declarator    go to state 12
+    declarator         go to state 68
+    direct_declarator  go to state 14
+    pointer            go to state 15
+
+
+State 24
+
+   90 function_definition: type_specifier declarator declaration_list • compound_statement
+   94 declaration_list: declaration_list • declaration
+
+    CHAR_             shift, and go to state 1
+    INT_              shift, and go to state 2
+    VOID_             shift, and go to state 3
+    CURLY_BRACE_OPEN  shift, and go to state 18
+
+    declaration         go to state 69
+    type_specifier      go to state 23
+    compound_statement  go to state 70
+
+
+State 25
+
+   57 direct_declarator: direct_declarator SQUARE_BRACE_OPEN • SQUARE_BRACE_CLOSE
+   58                  | direct_declarator SQUARE_BRACE_OPEN • assignment_expression SQUARE_BRACE_CLOSE
+
+    SQUARE_BRACE_CLOSE  shift, and go to state 71
+    PARENTHESIS_OPEN    shift, and go to state 31
+    BITWISE_AND         shift, and go to state 33
+    MULTIPLY            shift, and go to state 34
+    ADD_                shift, and go to state 35
+    SUBTRACT            shift, and go to state 36
+    NOT                 shift, and go to state 37
+    IDENTIFIER          shift, and go to state 39
+    INTEGER_CONSTANT    shift, and go to state 40
+    CHAR_CONSTANT       shift, and go to state 41
+    STRING_LITERAL      shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 72
+
+
+State 26
+
+   59 direct_declarator: direct_declarator PARENTHESIS_OPEN • parameter_list_opt PARENTHESIS_CLOSE
+
+    CHAR_  shift, and go to state 1
+    INT_   shift, and go to state 2
+    VOID_  shift, and go to state 3
+
+    $default  reduce using rule 61 (parameter_list_opt)
+
+    type_specifier         go to state 73
+    parameter_list_opt     go to state 74
+    parameter_list         go to state 75
+    parameter_declaration  go to state 76
+
+
+State 27
+
+   54 declarator: pointer direct_declarator •
+   57 direct_declarator: direct_declarator • SQUARE_BRACE_OPEN SQUARE_BRACE_CLOSE
+   58                  | direct_declarator • SQUARE_BRACE_OPEN assignment_expression SQUARE_BRACE_CLOSE
+   59                  | direct_declarator • PARENTHESIS_OPEN parameter_list_opt PARENTHESIS_CLOSE
+
+    SQUARE_BRACE_OPEN  shift, and go to state 25
+    PARENTHESIS_OPEN   shift, and go to state 26
+
+    $default  reduce using rule 54 (declarator)
+
+
+State 28
+
+   83 iteration_statement: FOR • PARENTHESIS_OPEN expression_statement M expression_statement N M expression N PARENTHESIS_CLOSE M statement
+
+    PARENTHESIS_OPEN  shift, and go to state 77
+
+
+State 29
+
+   81 selection_statement: IF • PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N
+   82                    | IF • PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N ELSE M statement N
+
+    PARENTHESIS_OPEN  shift, and go to state 78
+
+
+State 30
+
+   84 jump_statement: RETURN_ • SEMICOLON
+   85               | RETURN_ • expression SEMICOLON
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 79
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 80
+
+
+State 31
+
+    5 primary_expression: PARENTHESIS_OPEN • expression PARENTHESIS_CLOSE
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 81
+
+
+State 32
+
+   73 compound_statement: CURLY_BRACE_OPEN CURLY_BRACE_CLOSE •
+
+    $default  reduce using rule 73 (compound_statement)
+
+
+State 33
+
+   15 unary_operator: BITWISE_AND •
+
+    $default  reduce using rule 15 (unary_operator)
+
+
+State 34
+
+   16 unary_operator: MULTIPLY •
+
+    $default  reduce using rule 16 (unary_operator)
+
+
+State 35
+
+   17 unary_operator: ADD_ •
+
+    $default  reduce using rule 17 (unary_operator)
+
+
+State 36
+
+   18 unary_operator: SUBTRACT •
+
+    $default  reduce using rule 18 (unary_operator)
+
+
+State 37
+
+   19 unary_operator: NOT •
+
+    $default  reduce using rule 19 (unary_operator)
+
+
+State 38
+
+   80 expression_statement: SEMICOLON •
+
+    $default  reduce using rule 80 (expression_statement)
+
+
+State 39
+
+    1 primary_expression: IDENTIFIER •
+
+    $default  reduce using rule 1 (primary_expression)
+
+
+State 40
+
+    2 primary_expression: INTEGER_CONSTANT •
+
+    $default  reduce using rule 2 (primary_expression)
+
+
+State 41
+
+    3 primary_expression: CHAR_CONSTANT •
+
+    $default  reduce using rule 3 (primary_expression)
+
+
+State 42
+
+    4 primary_expression: STRING_LITERAL •
+
+    $default  reduce using rule 4 (primary_expression)
+
+
+State 43
+
+    6 postfix_expression: primary_expression •
+
+    $default  reduce using rule 6 (postfix_expression)
+
+
+State 44
+
+    7 postfix_expression: postfix_expression • SQUARE_BRACE_OPEN expression SQUARE_BRACE_CLOSE
+    8                   | postfix_expression • PARENTHESIS_OPEN PARENTHESIS_CLOSE
+    9                   | postfix_expression • PARENTHESIS_OPEN argument_expression_list PARENTHESIS_CLOSE
+   10                   | postfix_expression • ARROW IDENTIFIER
+   13 unary_expression: postfix_expression •
+
+    SQUARE_BRACE_OPEN  shift, and go to state 82
+    PARENTHESIS_OPEN   shift, and go to state 83
+    ARROW              shift, and go to state 84
+
+    $default  reduce using rule 13 (unary_expression)
+
+
+State 45
+
+   20 cast_expression: unary_expression •
+   45 assignment_expression: unary_expression • assignment_operator assignment_expression
+
+    ASSIGN_  shift, and go to state 85
+
+    $default  reduce using rule 20 (cast_expression)
+
+    assignment_operator  go to state 86
+
+
+State 46
+
+   14 unary_expression: unary_operator • cast_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression  go to state 43
+    postfix_expression  go to state 44
+    unary_expression    go to state 87
+    unary_operator      go to state 46
+    cast_expression     go to state 88
+
+
+State 47
+
+   21 multiplicative_expression: cast_expression •
+
+    $default  reduce using rule 21 (multiplicative_expression)
+
+
+State 48
+
+   22 multiplicative_expression: multiplicative_expression • MULTIPLY cast_expression
+   23                          | multiplicative_expression • DIVIDE cast_expression
+   24                          | multiplicative_expression • MODULO cast_expression
+   25 additive_expression: multiplicative_expression •
+
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
+    MODULO    shift, and go to state 91
+
+    $default  reduce using rule 25 (additive_expression)
+
+
+State 49
+
+   26 additive_expression: additive_expression • ADD_ multiplicative_expression
+   27                    | additive_expression • SUBTRACT multiplicative_expression
+   28 relational_expression: additive_expression •
+
+    ADD_      shift, and go to state 92
+    SUBTRACT  shift, and go to state 93
+
+    $default  reduce using rule 28 (relational_expression)
+
+
+State 50
+
+   29 relational_expression: relational_expression • LESS_THAN additive_expression
+   30                      | relational_expression • GREATER_THAN additive_expression
+   31                      | relational_expression • LESS_THAN_EQUAL additive_expression
+   32                      | relational_expression • GREATER_THAN_EQUAL additive_expression
+   33 equality_expression: relational_expression •
+
+    LESS_THAN           shift, and go to state 94
+    GREATER_THAN        shift, and go to state 95
+    LESS_THAN_EQUAL     shift, and go to state 96
+    GREATER_THAN_EQUAL  shift, and go to state 97
+
+    $default  reduce using rule 33 (equality_expression)
+
+
+State 51
+
+   34 equality_expression: equality_expression • EQUAL relational_expression
+   35                    | equality_expression • NOT_EQUAL relational_expression
+   36 logical_and_expression: equality_expression •
+
+    EQUAL      shift, and go to state 98
+    NOT_EQUAL  shift, and go to state 99
+
+    $default  reduce using rule 36 (logical_and_expression)
+
+
+State 52
+
+   37 logical_and_expression: logical_and_expression • LOGICAL_AND M equality_expression
+   38 logical_or_expression: logical_and_expression •
+
+    LOGICAL_AND  shift, and go to state 100
+
+    $default  reduce using rule 38 (logical_or_expression)
+
+
+State 53
+
+   39 logical_or_expression: logical_or_expression • LOGICAL_OR M logical_and_expression
+   40 conditional_expression: logical_or_expression •
+   41                       | logical_or_expression • N QUESTION_MARK M expression N COLON M conditional_expression
+
+    LOGICAL_OR  shift, and go to state 101
+
+    QUESTION_MARK  reduce using rule 43 (N)
+    $default       reduce using rule 40 (conditional_expression)
+
+    N  go to state 102
+
+
+State 54
+
+   44 assignment_expression: conditional_expression •
+
+    $default  reduce using rule 44 (assignment_expression)
+
+
+State 55
+
+   47 expression: assignment_expression •
+
+    $default  reduce using rule 47 (expression)
+
+
+State 56
+
+   79 expression_statement: expression • SEMICOLON
+
+    SEMICOLON  shift, and go to state 103
+
+
+State 57
+
+   77 block_item: declaration •
+
+    $default  reduce using rule 77 (block_item)
+
+
+State 58
+
+   78 block_item: statement •
+
+    $default  reduce using rule 78 (block_item)
+
+
+State 59
+
+   68 statement: compound_statement •
+
+    $default  reduce using rule 68 (statement)
+
+
+State 60
+
+   74 compound_statement: CURLY_BRACE_OPEN block_item_list • CURLY_BRACE_CLOSE
+   76 block_item_list: block_item_list • M block_item
+
+    CURLY_BRACE_CLOSE  shift, and go to state 104
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 105
+
+
+State 61
+
+   75 block_item_list: block_item •
+
+    $default  reduce using rule 75 (block_item_list)
+
+
+State 62
+
+   69 statement: expression_statement •
+
+    $default  reduce using rule 69 (statement)
+
+
+State 63
+
+   70 statement: selection_statement •
+
+    $default  reduce using rule 70 (statement)
+
+
+State 64
+
+   71 statement: iteration_statement •
+
+    $default  reduce using rule 71 (statement)
+
+
+State 65
+
+   72 statement: jump_statement •
+
+    $default  reduce using rule 72 (statement)
+
+
+State 66
+
+   67 initializer: assignment_expression •
+
+    $default  reduce using rule 67 (initializer)
+
+
+State 67
+
+   50 init_declarator: declarator ASSIGN_ initializer •
+
+    $default  reduce using rule 50 (init_declarator)
+
+
+State 68
+
+   49 init_declarator: declarator •
+   50                | declarator • ASSIGN_ initializer
+
+    ASSIGN_  shift, and go to state 21
+
+    $default  reduce using rule 49 (init_declarator)
+
+
+State 69
+
+   94 declaration_list: declaration_list declaration •
+
+    $default  reduce using rule 94 (declaration_list)
+
+
+State 70
+
+   90 function_definition: type_specifier declarator declaration_list compound_statement •
+
+    $default  reduce using rule 90 (function_definition)
+
+
+State 71
+
+   57 direct_declarator: direct_declarator SQUARE_BRACE_OPEN SQUARE_BRACE_CLOSE •
+
+    $default  reduce using rule 57 (direct_declarator)
+
+
+State 72
+
+   58 direct_declarator: direct_declarator SQUARE_BRACE_OPEN assignment_expression • SQUARE_BRACE_CLOSE
+
+    SQUARE_BRACE_CLOSE  shift, and go to state 106
+
+
+State 73
+
+   65 parameter_declaration: type_specifier • declarator
+   66                      | type_specifier •
+
+    MULTIPLY    shift, and go to state 10
+    IDENTIFIER  shift, and go to state 11
+
+    $default  reduce using rule 66 (parameter_declaration)
+
+    declarator         go to state 107
+    direct_declarator  go to state 14
+    pointer            go to state 15
+
+
+State 74
+
+   59 direct_declarator: direct_declarator PARENTHESIS_OPEN parameter_list_opt • PARENTHESIS_CLOSE
+
+    PARENTHESIS_CLOSE  shift, and go to state 108
+
+
+State 75
+
+   60 parameter_list_opt: parameter_list •
+   64 parameter_list: parameter_list • COMMA parameter_declaration
+
+    COMMA  shift, and go to state 109
+
+    $default  reduce using rule 60 (parameter_list_opt)
+
+
+State 76
+
+   63 parameter_list: parameter_declaration •
+
+    $default  reduce using rule 63 (parameter_list)
+
+
+State 77
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN • expression_statement M expression_statement N M expression N PARENTHESIS_CLOSE M statement
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 38
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    expression_statement       go to state 110
+
+
+State 78
+
+   81 selection_statement: IF PARENTHESIS_OPEN • expression N PARENTHESIS_CLOSE M statement N
+   82                    | IF PARENTHESIS_OPEN • expression N PARENTHESIS_CLOSE M statement N ELSE M statement N
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 111
+
+
+State 79
+
+   84 jump_statement: RETURN_ SEMICOLON •
+
+    $default  reduce using rule 84 (jump_statement)
+
+
+State 80
+
+   85 jump_statement: RETURN_ expression • SEMICOLON
+
+    SEMICOLON  shift, and go to state 112
+
+
+State 81
+
+    5 primary_expression: PARENTHESIS_OPEN expression • PARENTHESIS_CLOSE
+
+    PARENTHESIS_CLOSE  shift, and go to state 113
+
+
+State 82
+
+    7 postfix_expression: postfix_expression SQUARE_BRACE_OPEN • expression SQUARE_BRACE_CLOSE
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 114
+
+
+State 83
+
+    8 postfix_expression: postfix_expression PARENTHESIS_OPEN • PARENTHESIS_CLOSE
+    9                   | postfix_expression PARENTHESIS_OPEN • argument_expression_list PARENTHESIS_CLOSE
+
+    PARENTHESIS_OPEN   shift, and go to state 31
+    PARENTHESIS_CLOSE  shift, and go to state 115
+    BITWISE_AND        shift, and go to state 33
+    MULTIPLY           shift, and go to state 34
+    ADD_               shift, and go to state 35
+    SUBTRACT           shift, and go to state 36
+    NOT                shift, and go to state 37
+    IDENTIFIER         shift, and go to state 39
+    INTEGER_CONSTANT   shift, and go to state 40
+    CHAR_CONSTANT      shift, and go to state 41
+    STRING_LITERAL     shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    argument_expression_list   go to state 116
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 117
+
+
+State 84
+
+   10 postfix_expression: postfix_expression ARROW • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 118
+
+
+State 85
+
+   46 assignment_operator: ASSIGN_ •
+
+    $default  reduce using rule 46 (assignment_operator)
+
+
+State 86
+
+   45 assignment_expression: unary_expression assignment_operator • assignment_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 119
+
+
+State 87
+
+   20 cast_expression: unary_expression •
+
+    $default  reduce using rule 20 (cast_expression)
+
+
+State 88
+
+   14 unary_expression: unary_operator cast_expression •
+
+    $default  reduce using rule 14 (unary_expression)
+
+
+State 89
+
+   22 multiplicative_expression: multiplicative_expression MULTIPLY • cast_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression  go to state 43
+    postfix_expression  go to state 44
+    unary_expression    go to state 87
+    unary_operator      go to state 46
+    cast_expression     go to state 120
+
+
+State 90
+
+   23 multiplicative_expression: multiplicative_expression DIVIDE • cast_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression  go to state 43
+    postfix_expression  go to state 44
+    unary_expression    go to state 87
+    unary_operator      go to state 46
+    cast_expression     go to state 121
+
+
+State 91
+
+   24 multiplicative_expression: multiplicative_expression MODULO • cast_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression  go to state 43
+    postfix_expression  go to state 44
+    unary_expression    go to state 87
+    unary_operator      go to state 46
+    cast_expression     go to state 122
+
+
+State 92
+
+   26 additive_expression: additive_expression ADD_ • multiplicative_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 123
+
+
+State 93
+
+   27 additive_expression: additive_expression SUBTRACT • multiplicative_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 124
+
+
+State 94
+
+   29 relational_expression: relational_expression LESS_THAN • additive_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 125
+
+
+State 95
+
+   30 relational_expression: relational_expression GREATER_THAN • additive_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 126
+
+
+State 96
+
+   31 relational_expression: relational_expression LESS_THAN_EQUAL • additive_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 127
+
+
+State 97
+
+   32 relational_expression: relational_expression GREATER_THAN_EQUAL • additive_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 128
+
+
+State 98
+
+   34 equality_expression: equality_expression EQUAL • relational_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 129
+
+
+State 99
+
+   35 equality_expression: equality_expression NOT_EQUAL • relational_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 130
+
+
+State 100
+
+   37 logical_and_expression: logical_and_expression LOGICAL_AND • M equality_expression
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 131
+
+
+State 101
+
+   39 logical_or_expression: logical_or_expression LOGICAL_OR • M logical_and_expression
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 132
+
+
+State 102
+
+   41 conditional_expression: logical_or_expression N • QUESTION_MARK M expression N COLON M conditional_expression
+
+    QUESTION_MARK  shift, and go to state 133
+
+
+State 103
+
+   79 expression_statement: expression SEMICOLON •
+
+    $default  reduce using rule 79 (expression_statement)
+
+
+State 104
+
+   74 compound_statement: CURLY_BRACE_OPEN block_item_list CURLY_BRACE_CLOSE •
+
+    $default  reduce using rule 74 (compound_statement)
+
+
+State 105
+
+   76 block_item_list: block_item_list M • block_item
+
+    CHAR_             shift, and go to state 1
+    FOR               shift, and go to state 28
+    IF                shift, and go to state 29
+    INT_              shift, and go to state 2
+    RETURN_           shift, and go to state 30
+    VOID_             shift, and go to state 3
+    PARENTHESIS_OPEN  shift, and go to state 31
+    CURLY_BRACE_OPEN  shift, and go to state 18
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 38
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    declaration                go to state 57
+    type_specifier             go to state 23
+    statement                  go to state 58
+    compound_statement         go to state 59
+    block_item                 go to state 134
+    expression_statement       go to state 62
+    selection_statement        go to state 63
+    iteration_statement        go to state 64
+    jump_statement             go to state 65
+
+
+State 106
+
+   58 direct_declarator: direct_declarator SQUARE_BRACE_OPEN assignment_expression SQUARE_BRACE_CLOSE •
+
+    $default  reduce using rule 58 (direct_declarator)
+
+
+State 107
+
+   65 parameter_declaration: type_specifier declarator •
+
+    $default  reduce using rule 65 (parameter_declaration)
+
+
+State 108
+
+   59 direct_declarator: direct_declarator PARENTHESIS_OPEN parameter_list_opt PARENTHESIS_CLOSE •
+
+    $default  reduce using rule 59 (direct_declarator)
+
+
+State 109
+
+   64 parameter_list: parameter_list COMMA • parameter_declaration
+
+    CHAR_  shift, and go to state 1
+    INT_   shift, and go to state 2
+    VOID_  shift, and go to state 3
+
+    type_specifier         go to state 73
+    parameter_declaration  go to state 135
+
+
+State 110
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement • M expression_statement N M expression N PARENTHESIS_CLOSE M statement
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 136
+
+
+State 111
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression • N PARENTHESIS_CLOSE M statement N
+   82                    | IF PARENTHESIS_OPEN expression • N PARENTHESIS_CLOSE M statement N ELSE M statement N
+
+    $default  reduce using rule 43 (N)
+
+    N  go to state 137
+
+
+State 112
+
+   85 jump_statement: RETURN_ expression SEMICOLON •
+
+    $default  reduce using rule 85 (jump_statement)
+
+
+State 113
+
+    5 primary_expression: PARENTHESIS_OPEN expression PARENTHESIS_CLOSE •
+
+    $default  reduce using rule 5 (primary_expression)
+
+
+State 114
+
+    7 postfix_expression: postfix_expression SQUARE_BRACE_OPEN expression • SQUARE_BRACE_CLOSE
+
+    SQUARE_BRACE_CLOSE  shift, and go to state 138
+
+
+State 115
+
+    8 postfix_expression: postfix_expression PARENTHESIS_OPEN PARENTHESIS_CLOSE •
+
+    $default  reduce using rule 8 (postfix_expression)
+
+
+State 116
+
+    9 postfix_expression: postfix_expression PARENTHESIS_OPEN argument_expression_list • PARENTHESIS_CLOSE
+   12 argument_expression_list: argument_expression_list • COMMA assignment_expression
+
+    PARENTHESIS_CLOSE  shift, and go to state 139
+    COMMA              shift, and go to state 140
+
+
+State 117
+
+   11 argument_expression_list: assignment_expression •
+
+    $default  reduce using rule 11 (argument_expression_list)
+
+
+State 118
+
+   10 postfix_expression: postfix_expression ARROW IDENTIFIER •
+
+    $default  reduce using rule 10 (postfix_expression)
+
+
+State 119
+
+   45 assignment_expression: unary_expression assignment_operator assignment_expression •
+
+    $default  reduce using rule 45 (assignment_expression)
+
+
+State 120
+
+   22 multiplicative_expression: multiplicative_expression MULTIPLY cast_expression •
+
+    $default  reduce using rule 22 (multiplicative_expression)
+
+
+State 121
+
+   23 multiplicative_expression: multiplicative_expression DIVIDE cast_expression •
+
+    $default  reduce using rule 23 (multiplicative_expression)
+
+
+State 122
+
+   24 multiplicative_expression: multiplicative_expression MODULO cast_expression •
+
+    $default  reduce using rule 24 (multiplicative_expression)
+
+
+State 123
+
+   22 multiplicative_expression: multiplicative_expression • MULTIPLY cast_expression
+   23                          | multiplicative_expression • DIVIDE cast_expression
+   24                          | multiplicative_expression • MODULO cast_expression
+   26 additive_expression: additive_expression ADD_ multiplicative_expression •
+
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
+    MODULO    shift, and go to state 91
+
+    $default  reduce using rule 26 (additive_expression)
+
+
+State 124
+
+   22 multiplicative_expression: multiplicative_expression • MULTIPLY cast_expression
+   23                          | multiplicative_expression • DIVIDE cast_expression
+   24                          | multiplicative_expression • MODULO cast_expression
+   27 additive_expression: additive_expression SUBTRACT multiplicative_expression •
+
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
+    MODULO    shift, and go to state 91
+
+    $default  reduce using rule 27 (additive_expression)
+
+
+State 125
+
+   26 additive_expression: additive_expression • ADD_ multiplicative_expression
+   27                    | additive_expression • SUBTRACT multiplicative_expression
+   29 relational_expression: relational_expression LESS_THAN additive_expression •
+
+    ADD_      shift, and go to state 92
+    SUBTRACT  shift, and go to state 93
+
+    $default  reduce using rule 29 (relational_expression)
+
+
+State 126
+
+   26 additive_expression: additive_expression • ADD_ multiplicative_expression
+   27                    | additive_expression • SUBTRACT multiplicative_expression
+   30 relational_expression: relational_expression GREATER_THAN additive_expression •
+
+    ADD_      shift, and go to state 92
+    SUBTRACT  shift, and go to state 93
+
+    $default  reduce using rule 30 (relational_expression)
+
+
+State 127
+
+   26 additive_expression: additive_expression • ADD_ multiplicative_expression
+   27                    | additive_expression • SUBTRACT multiplicative_expression
+   31 relational_expression: relational_expression LESS_THAN_EQUAL additive_expression •
+
+    ADD_      shift, and go to state 92
+    SUBTRACT  shift, and go to state 93
+
+    $default  reduce using rule 31 (relational_expression)
+
+
+State 128
+
+   26 additive_expression: additive_expression • ADD_ multiplicative_expression
+   27                    | additive_expression • SUBTRACT multiplicative_expression
+   32 relational_expression: relational_expression GREATER_THAN_EQUAL additive_expression •
+
+    ADD_      shift, and go to state 92
+    SUBTRACT  shift, and go to state 93
+
+    $default  reduce using rule 32 (relational_expression)
+
+
+State 129
+
+   29 relational_expression: relational_expression • LESS_THAN additive_expression
+   30                      | relational_expression • GREATER_THAN additive_expression
+   31                      | relational_expression • LESS_THAN_EQUAL additive_expression
+   32                      | relational_expression • GREATER_THAN_EQUAL additive_expression
+   34 equality_expression: equality_expression EQUAL relational_expression •
+
+    LESS_THAN           shift, and go to state 94
+    GREATER_THAN        shift, and go to state 95
+    LESS_THAN_EQUAL     shift, and go to state 96
+    GREATER_THAN_EQUAL  shift, and go to state 97
+
+    $default  reduce using rule 34 (equality_expression)
+
+
+State 130
+
+   29 relational_expression: relational_expression • LESS_THAN additive_expression
+   30                      | relational_expression • GREATER_THAN additive_expression
+   31                      | relational_expression • LESS_THAN_EQUAL additive_expression
+   32                      | relational_expression • GREATER_THAN_EQUAL additive_expression
+   35 equality_expression: equality_expression NOT_EQUAL relational_expression •
+
+    LESS_THAN           shift, and go to state 94
+    GREATER_THAN        shift, and go to state 95
+    LESS_THAN_EQUAL     shift, and go to state 96
+    GREATER_THAN_EQUAL  shift, and go to state 97
+
+    $default  reduce using rule 35 (equality_expression)
+
+
+State 131
+
+   37 logical_and_expression: logical_and_expression LOGICAL_AND M • equality_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 141
+
+
+State 132
+
+   39 logical_or_expression: logical_or_expression LOGICAL_OR M • logical_and_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 142
+
+
+State 133
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK • M expression N COLON M conditional_expression
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 143
+
+
+State 134
+
+   76 block_item_list: block_item_list M block_item •
+
+    $default  reduce using rule 76 (block_item_list)
+
+
+State 135
+
+   64 parameter_list: parameter_list COMMA parameter_declaration •
+
+    $default  reduce using rule 64 (parameter_list)
+
+
+State 136
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M • expression_statement N M expression N PARENTHESIS_CLOSE M statement
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 38
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    expression_statement       go to state 144
+
+
+State 137
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression N • PARENTHESIS_CLOSE M statement N
+   82                    | IF PARENTHESIS_OPEN expression N • PARENTHESIS_CLOSE M statement N ELSE M statement N
+
+    PARENTHESIS_CLOSE  shift, and go to state 145
+
+
+State 138
+
+    7 postfix_expression: postfix_expression SQUARE_BRACE_OPEN expression SQUARE_BRACE_CLOSE •
+
+    $default  reduce using rule 7 (postfix_expression)
+
+
+State 139
+
+    9 postfix_expression: postfix_expression PARENTHESIS_OPEN argument_expression_list PARENTHESIS_CLOSE •
+
+    $default  reduce using rule 9 (postfix_expression)
+
+
+State 140
+
+   12 argument_expression_list: argument_expression_list COMMA • assignment_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 146
+
+
+State 141
+
+   34 equality_expression: equality_expression • EQUAL relational_expression
+   35                    | equality_expression • NOT_EQUAL relational_expression
+   37 logical_and_expression: logical_and_expression LOGICAL_AND M equality_expression •
+
+    EQUAL      shift, and go to state 98
+    NOT_EQUAL  shift, and go to state 99
+
+    $default  reduce using rule 37 (logical_and_expression)
+
+
+State 142
+
+   37 logical_and_expression: logical_and_expression • LOGICAL_AND M equality_expression
+   39 logical_or_expression: logical_or_expression LOGICAL_OR M logical_and_expression •
+
+    LOGICAL_AND  shift, and go to state 100
+
+    $default  reduce using rule 39 (logical_or_expression)
+
+
+State 143
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK M • expression N COLON M conditional_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 147
+
+
+State 144
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement • N M expression N PARENTHESIS_CLOSE M statement
+
+    $default  reduce using rule 43 (N)
+
+    N  go to state 148
+
+
+State 145
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE • M statement N
+   82                    | IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE • M statement N ELSE M statement N
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 149
+
+
+State 146
+
+   12 argument_expression_list: argument_expression_list COMMA assignment_expression •
+
+    $default  reduce using rule 12 (argument_expression_list)
+
+
+State 147
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK M expression • N COLON M conditional_expression
+
+    $default  reduce using rule 43 (N)
+
+    N  go to state 150
+
+
+State 148
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N • M expression N PARENTHESIS_CLOSE M statement
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 151
+
+
+State 149
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M • statement N
+   82                    | IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M • statement N ELSE M statement N
+
+    FOR               shift, and go to state 28
+    IF                shift, and go to state 29
+    RETURN_           shift, and go to state 30
+    PARENTHESIS_OPEN  shift, and go to state 31
+    CURLY_BRACE_OPEN  shift, and go to state 18
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 38
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    statement                  go to state 152
+    compound_statement         go to state 59
+    expression_statement       go to state 62
+    selection_statement        go to state 63
+    iteration_statement        go to state 64
+    jump_statement             go to state 65
+
+
+State 150
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK M expression N • COLON M conditional_expression
+
+    COLON  shift, and go to state 153
+
+
+State 151
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M • expression N PARENTHESIS_CLOSE M statement
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 154
+
+
+State 152
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement • N
+   82                    | IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement • N ELSE M statement N
+
+    $default  reduce using rule 43 (N)
+
+    N  go to state 155
+
+
+State 153
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK M expression N COLON • M conditional_expression
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 156
+
+
+State 154
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M expression • N PARENTHESIS_CLOSE M statement
+
+    $default  reduce using rule 43 (N)
+
+    N  go to state 157
+
+
+State 155
+
+   81 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N •
+   82                    | IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N • ELSE M statement N
+
+    ELSE  shift, and go to state 158
+
+    ELSE      [reduce using rule 81 (selection_statement)]
+    $default  reduce using rule 81 (selection_statement)
+
+
+State 156
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK M expression N COLON M • conditional_expression
+
+    PARENTHESIS_OPEN  shift, and go to state 31
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 87
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 159
+
+
+State 157
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M expression N • PARENTHESIS_CLOSE M statement
+
+    PARENTHESIS_CLOSE  shift, and go to state 160
+
+
+State 158
+
+   82 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N ELSE • M statement N
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 161
+
+
+State 159
+
+   41 conditional_expression: logical_or_expression N QUESTION_MARK M expression N COLON M conditional_expression •
+
+    $default  reduce using rule 41 (conditional_expression)
+
+
+State 160
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M expression N PARENTHESIS_CLOSE • M statement
+
+    $default  reduce using rule 42 (M)
+
+    M  go to state 162
+
+
+State 161
+
+   82 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N ELSE M • statement N
+
+    FOR               shift, and go to state 28
+    IF                shift, and go to state 29
+    RETURN_           shift, and go to state 30
+    PARENTHESIS_OPEN  shift, and go to state 31
+    CURLY_BRACE_OPEN  shift, and go to state 18
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 38
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    statement                  go to state 163
+    compound_statement         go to state 59
+    expression_statement       go to state 62
+    selection_statement        go to state 63
+    iteration_statement        go to state 64
+    jump_statement             go to state 65
+
+
+State 162
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M expression N PARENTHESIS_CLOSE M • statement
+
+    FOR               shift, and go to state 28
+    IF                shift, and go to state 29
+    RETURN_           shift, and go to state 30
+    PARENTHESIS_OPEN  shift, and go to state 31
+    CURLY_BRACE_OPEN  shift, and go to state 18
+    BITWISE_AND       shift, and go to state 33
+    MULTIPLY          shift, and go to state 34
+    ADD_              shift, and go to state 35
+    SUBTRACT          shift, and go to state 36
+    NOT               shift, and go to state 37
+    SEMICOLON         shift, and go to state 38
+    IDENTIFIER        shift, and go to state 39
+    INTEGER_CONSTANT  shift, and go to state 40
+    CHAR_CONSTANT     shift, and go to state 41
+    STRING_LITERAL    shift, and go to state 42
+
+    primary_expression         go to state 43
+    postfix_expression         go to state 44
+    unary_expression           go to state 45
+    unary_operator             go to state 46
+    cast_expression            go to state 47
+    multiplicative_expression  go to state 48
+    additive_expression        go to state 49
+    relational_expression      go to state 50
+    equality_expression        go to state 51
+    logical_and_expression     go to state 52
+    logical_or_expression      go to state 53
+    conditional_expression     go to state 54
+    assignment_expression      go to state 55
+    expression                 go to state 56
+    statement                  go to state 164
+    compound_statement         go to state 59
+    expression_statement       go to state 62
+    selection_statement        go to state 63
+    iteration_statement        go to state 64
+    jump_statement             go to state 65
+
+
+State 163
+
+   82 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N ELSE M statement • N
+
+    $default  reduce using rule 43 (N)
+
+    N  go to state 165
+
+
+State 164
+
+   83 iteration_statement: FOR PARENTHESIS_OPEN expression_statement M expression_statement N M expression N PARENTHESIS_CLOSE M statement •
+
+    $default  reduce using rule 83 (iteration_statement)
+
+
+State 165
+
+   82 selection_statement: IF PARENTHESIS_OPEN expression N PARENTHESIS_CLOSE M statement N ELSE M statement N •
+
+    $default  reduce using rule 82 (selection_statement)

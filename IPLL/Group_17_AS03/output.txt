@@ -1,0 +1,229 @@
+<MULTI_LINE_COMMENT, /*
+    * C program to implement recursive Binary Search
+*/>
+<KEYWORD, int>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 10>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, ;>
+<KEYWORD, int>
+<IDENTIFIER, binarySearch>
+<PUNCTUATOR, (>
+<KEYWORD, int>
+<IDENTIFIER, l>
+<PUNCTUATOR, ,>
+<KEYWORD, int>
+<IDENTIFIER, r>
+<PUNCTUATOR, ,>
+<KEYWORD, int>
+<IDENTIFIER, x>
+<PUNCTUATOR, )>
+<PUNCTUATOR, {>
+<KEYWORD, if>
+<PUNCTUATOR, (>
+<IDENTIFIER, r>
+<PUNCTUATOR, >=>
+<IDENTIFIER, l>
+<PUNCTUATOR, )>
+<PUNCTUATOR, {>
+<KEYWORD, int>
+<IDENTIFIER, mid>
+<PUNCTUATOR, =>
+<IDENTIFIER, l>
+<PUNCTUATOR, +>
+<PUNCTUATOR, (>
+<IDENTIFIER, r>
+<PUNCTUATOR, ->
+<IDENTIFIER, l>
+<PUNCTUATOR, )>
+<PUNCTUATOR, />
+<INTEGER_CONSTANT, 2>
+<PUNCTUATOR, ;>
+<SINGLE_LINE_COMMENT, // If the element is present at the middle itself>
+<KEYWORD, if>
+<PUNCTUATOR, (>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<IDENTIFIER, mid>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, ==>
+<IDENTIFIER, x>
+<PUNCTUATOR, )>
+<KEYWORD, return>
+<IDENTIFIER, mid>
+<PUNCTUATOR, ;>
+<SINGLE_LINE_COMMENT, // If element is smaller than mid, then it can only be present in left subarray>
+<KEYWORD, if>
+<PUNCTUATOR, (>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<IDENTIFIER, mid>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, >>
+<IDENTIFIER, x>
+<PUNCTUATOR, )>
+<KEYWORD, return>
+<IDENTIFIER, binarySearch>
+<PUNCTUATOR, (>
+<IDENTIFIER, l>
+<PUNCTUATOR, ,>
+<IDENTIFIER, mid>
+<PUNCTUATOR, ->
+<INTEGER_CONSTANT, 1>
+<PUNCTUATOR, ,>
+<IDENTIFIER, x>
+<PUNCTUATOR, )>
+<PUNCTUATOR, ;>
+<SINGLE_LINE_COMMENT, // Else the element can only be present in right subarray>
+<KEYWORD, return>
+<IDENTIFIER, binarySearch>
+<PUNCTUATOR, (>
+<IDENTIFIER, mid>
+<PUNCTUATOR, +>
+<INTEGER_CONSTANT, 1>
+<PUNCTUATOR, ,>
+<IDENTIFIER, r>
+<PUNCTUATOR, ,>
+<IDENTIFIER, x>
+<PUNCTUATOR, )>
+<PUNCTUATOR, ;>
+<PUNCTUATOR, }>
+<SINGLE_LINE_COMMENT, // We reach here when element is not present in array>
+<KEYWORD, return>
+<INTEGER_CONSTANT, -1>
+<PUNCTUATOR, ;>
+<PUNCTUATOR, }>
+<KEYWORD, int>
+<IDENTIFIER, main>
+<PUNCTUATOR, (>
+<PUNCTUATOR, )>
+<PUNCTUATOR, {>
+<KEYWORD, int>
+<IDENTIFIER, n>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 5>
+<PUNCTUATOR, ;>
+<SINGLE_LINE_COMMENT, // Number of elements>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 0>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 2>
+<PUNCTUATOR, ;>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 1>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 3>
+<PUNCTUATOR, ;>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 2>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 4>
+<PUNCTUATOR, ;>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 3>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 10>
+<PUNCTUATOR, ;>
+<IDENTIFIER, arr>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 4>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 40>
+<PUNCTUATOR, ;>
+<KEYWORD, char>
+<IDENTIFIER, c>
+<PUNCTUATOR, =>
+<CHAR_CONSTANT, 'A'>
+<PUNCTUATOR, ;>
+<KEYWORD, char>
+<IDENTIFIER, d>
+<PUNCTUATOR, =>
+<CHAR_CONSTANT, 'B'>
+<PUNCTUATOR, ;>
+<KEYWORD, char>
+<IDENTIFIER, str>
+<PUNCTUATOR, [>
+<INTEGER_CONSTANT, 10>
+<PUNCTUATOR, ]>
+<PUNCTUATOR, =>
+<STRING_LITERAL, "This is a string literal">
+<PUNCTUATOR, ;>
+<KEYWORD, int>
+<IDENTIFIER, x>
+<PUNCTUATOR, =>
+<INTEGER_CONSTANT, 10>
+<PUNCTUATOR, ;>
+<SINGLE_LINE_COMMENT, // Element to be searched>
+<MULTI_LINE_COMMENT, /*
+        Below is the invalid token
+    */>
+<INVALID_TOKEN, #>
+<IDENTIFIER, define>
+<IDENTIFIER, PI>
+<INTEGER_CONSTANT, 3>
+<INVALID_TOKEN, .>
+<INTEGER_CONSTANT, 14>
+<PUNCTUATOR, ;>
+<KEYWORD, int>
+<IDENTIFIER, result>
+<PUNCTUATOR, =>
+<IDENTIFIER, binarySearch>
+<PUNCTUATOR, (>
+<INTEGER_CONSTANT, 0>
+<PUNCTUATOR, ,>
+<IDENTIFIER, n>
+<PUNCTUATOR, ->
+<INTEGER_CONSTANT, 1>
+<PUNCTUATOR, ,>
+<IDENTIFIER, x>
+<PUNCTUATOR, )>
+<PUNCTUATOR, ;>
+<KEYWORD, if>
+<PUNCTUATOR, (>
+<IDENTIFIER, result>
+<PUNCTUATOR, ==>
+<INTEGER_CONSTANT, -1>
+<PUNCTUATOR, )>
+<IDENTIFIER, printStr>
+<PUNCTUATOR, (>
+<STRING_LITERAL, "Element is not present in array">
+<PUNCTUATOR, )>
+<PUNCTUATOR, ;>
+<KEYWORD, else>
+<PUNCTUATOR, {>
+<IDENTIFIER, printStr>
+<PUNCTUATOR, (>
+<STRING_LITERAL, "Element is present at index ">
+<PUNCTUATOR, )>
+<PUNCTUATOR, ;>
+<IDENTIFIER, printInt>
+<PUNCTUATOR, (>
+<IDENTIFIER, result>
+<PUNCTUATOR, )>
+<PUNCTUATOR, ;>
+<PUNCTUATOR, }>
+<KEYWORD, return>
+<INTEGER_CONSTANT, 0>
+<PUNCTUATOR, ;>
+<PUNCTUATOR, }>
+============================================
+Total Keywords: 23
+Total Identifiers: 48
+Total Integer Constants: 24
+Total Char Constants: 2
+Total String Literals: 3
+Total Punctuators: 104
+Total Single Line Comments: 6
+Total Multi Line Comments: 2
+Total Invalid Tokens: 2
+============================================

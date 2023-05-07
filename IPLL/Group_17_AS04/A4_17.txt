@@ -1,0 +1,11 @@
+
+-------------------- Parsing _line No. 2  --------------------
+
+TYPE SPECIFIER => INT PARSED !
+DIRECT DECLARATOR => IDENTIFIER '(' ')' PARSED !
+DECLARATOR => DIRECT_DECLARATOR PARSED !
+
+-------------------- Parsing _line No. 3  --------------------
+
+TYPE SPECIFIER => INT PARSED !
+ERROR IS : syntax error
